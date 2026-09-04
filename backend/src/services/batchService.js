@@ -6,7 +6,6 @@ const batchPath = path.join(
   "../../data/recoveryBatch.json"
 );
 
-
 // ======================================================
 // GET BATCH
 // ======================================================
@@ -17,14 +16,27 @@ function getBatch() {
     return null;
   }
 
-  return JSON.parse(
-    fs.readFileSync(
-      batchPath,
-      "utf-8"
-    )
-  );
-}
+  try {
 
+    return JSON.parse(
+      fs.readFileSync(
+        batchPath,
+        "utf-8"
+      )
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Batch read error:",
+      error
+    );
+
+    return null;
+
+  }
+
+}
 
 // ======================================================
 // SAVE BATCH
@@ -45,7 +57,6 @@ function saveBatch(
 
 }
 
-
 // ======================================================
 // RECORD SUCCESSFUL RECOVERY
 // ======================================================
@@ -62,9 +73,6 @@ function recordRecovery(
     return null;
   }
 
-
-  // Prevent duplicate revenue counting.
-
   const alreadyRecovered =
     batch.recovered_payments.some(
       (item) =>
@@ -72,19 +80,14 @@ function recordRecovery(
         paymentId
     );
 
-
   if (
     alreadyRecovered
   ) {
-
     return batch;
-
   }
-
 
   batch.recovered_revenue +=
     Number(amount);
-
 
   batch.recovered_payments.push({
 
@@ -99,20 +102,17 @@ function recordRecovery(
 
   });
 
-
   updateBatchStatus(
     batch
   );
-
 
   saveBatch(
     batch
   );
 
-
   return batch;
-}
 
+}
 
 // ======================================================
 // RECORD HUMAN REVIEW
@@ -130,7 +130,6 @@ function recordHumanReview(
     return null;
   }
 
-
   const alreadyAdded =
     batch.human_review_payments.some(
       (item) =>
@@ -138,15 +137,11 @@ function recordHumanReview(
         paymentId
     );
 
-
   if (
     alreadyAdded
   ) {
-
     return batch;
-
   }
-
 
   batch.human_review_payments.push({
 
@@ -161,20 +156,17 @@ function recordHumanReview(
 
   });
 
-
   updateBatchStatus(
     batch
   );
-
 
   saveBatch(
     batch
   );
 
-
   return batch;
-}
 
+}
 
 // ======================================================
 // RECORD STOPPED RECOVERY
@@ -192,7 +184,6 @@ function recordStoppedRecovery(
     return null;
   }
 
-
   const alreadyAdded =
     batch.stopped_payments.some(
       (item) =>
@@ -200,15 +191,11 @@ function recordStoppedRecovery(
         paymentId
     );
 
-
   if (
     alreadyAdded
   ) {
-
     return batch;
-
   }
-
 
   batch.stopped_payments.push({
 
@@ -223,23 +210,33 @@ function recordStoppedRecovery(
 
   });
 
-
   updateBatchStatus(
     batch
   );
-
 
   saveBatch(
     batch
   );
 
-
   return batch;
+
 }
 
-
 // ======================================================
-// RECORD FAILED RECOVERY
+// RECORD FAILED RECOVERY ATTEMPT
+// ======================================================
+//
+// IMPORTANT:
+//
+// A failed retry/reminder attempt does NOT
+// automatically mean the payment is permanently
+// unrecoverable.
+//
+// The payment may still have another recovery
+// action available.
+//
+// Therefore failed_payments is treated as a
+// history of failed attempts, NOT a terminal state.
 // ======================================================
 
 function recordFailedRecovery(
@@ -254,7 +251,6 @@ function recordFailedRecovery(
     return null;
   }
 
-
   const alreadyAdded =
     batch.failed_payments.some(
       (item) =>
@@ -262,15 +258,11 @@ function recordFailedRecovery(
         paymentId
     );
 
-
   if (
     alreadyAdded
   ) {
-
     return batch;
-
   }
-
 
   batch.failed_payments.push({
 
@@ -285,20 +277,20 @@ function recordFailedRecovery(
 
   });
 
-
-  updateBatchStatus(
-    batch
-  );
-
+  /*
+   * Do NOT call updateBatchStatus() here.
+   *
+   * A failed attempt may still be followed by
+   * another recovery action.
+   */
 
   saveBatch(
     batch
   );
 
-
   return batch;
-}
 
+}
 
 // ======================================================
 // UPDATE BATCH STATUS
@@ -313,12 +305,15 @@ function updateBatchStatus(
       batch.recovered_revenue || 0
     );
 
-
   const recoverable =
     Number(
       batch.total_recoverable_revenue || 0
     );
 
+  /*
+   * Remaining revenue is based on actual
+   * recovered revenue.
+   */
 
   batch.remaining_revenue =
     Math.max(
@@ -327,10 +322,10 @@ function updateBatchStatus(
       0
     );
 
-
-  // ----------------------------------------------
-  // ALL RECOVERABLE REVENUE RECOVERED
-  // ----------------------------------------------
+  /*
+   * If all recoverable revenue has been
+   * recovered, the batch is complete.
+   */
 
   if (
     batch.remaining_revenue ===
@@ -344,31 +339,39 @@ function updateBatchStatus(
 
   }
 
-
-  // ----------------------------------------------
-  // CHECK WHETHER THERE ARE STILL PAYMENTS
-  // THAT CAN BE AUTOMATICALLY PROCESSED
-  // ----------------------------------------------
+  // ====================================================
+  // TERMINAL PAYMENT COUNTS
+  // ====================================================
 
   const recoveredCount =
-    batch.recovered_payments.length;
+    (
+      batch.recovered_payments ||
+      []
+    ).length;
 
   const humanReviewCount =
-    batch.human_review_payments.length;
+    (
+      batch.human_review_payments ||
+      []
+    ).length;
 
   const stoppedCount =
-    batch.stopped_payments.length;
+    (
+      batch.stopped_payments ||
+      []
+    ).length;
 
-  const failedCount =
-    batch.failed_payments.length;
-
+  /*
+   * failed_payments is intentionally NOT included.
+   *
+   * It represents failed recovery attempts.
+   * The payment may still be recoverable.
+   */
 
   const terminalCount =
     recoveredCount +
     humanReviewCount +
-    stoppedCount +
-    failedCount;
-
+    stoppedCount;
 
   const totalRecoverablePayments =
     Number(
@@ -376,10 +379,10 @@ function updateBatchStatus(
       0
     );
 
-
-  // ----------------------------------------------
-  // EVERYTHING HAS BEEN PROCESSED
-  // ----------------------------------------------
+  /*
+   * Every recoverable payment has reached
+   * a terminal state.
+   */
 
   if (
     totalRecoverablePayments > 0 &&
@@ -394,11 +397,10 @@ function updateBatchStatus(
 
   }
 
-
   batch.status =
     "ACTIVE";
-}
 
+}
 
 // ======================================================
 // GET BATCH METRICS
@@ -413,13 +415,11 @@ function getBatchMetrics() {
     return null;
   }
 
-
   const recoverableRevenue =
     Number(
       batch.total_recoverable_revenue ||
       0
     );
-
 
   const recoveredRevenue =
     Number(
@@ -427,9 +427,9 @@ function getBatchMetrics() {
       0
     );
 
-
   const recoveryRate =
     recoverableRevenue > 0
+
       ? (
           (
             recoveredRevenue /
@@ -437,59 +437,84 @@ function getBatchMetrics() {
           ) *
           100
         ).toFixed(2)
+
       : "0.00";
 
+  // ====================================================
+  // HUMAN REVIEW REVENUE
+  // ====================================================
 
   const humanReviewRevenue =
     (
       batch.human_review_payments ||
       []
     ).reduce(
+
       (
         total,
         payment
       ) =>
+
         total +
         Number(
-          payment.amount
+          payment.amount || 0
         ),
+
       0
+
     );
 
+  // ====================================================
+  // STOPPED REVENUE
+  // ====================================================
 
   const stoppedRevenue =
     (
       batch.stopped_payments ||
       []
     ).reduce(
+
       (
         total,
         payment
       ) =>
+
         total +
         Number(
-          payment.amount
+          payment.amount || 0
         ),
+
       0
+
     );
 
+  // ====================================================
+  // FAILED ATTEMPT REVENUE
+  // ====================================================
 
   const failedRecoveryRevenue =
     (
       batch.failed_payments ||
       []
     ).reduce(
+
       (
         total,
         payment
       ) =>
+
         total +
         Number(
-          payment.amount
+          payment.amount || 0
         ),
+
       0
+
     );
 
+  // ====================================================
+  // RETURN METRICS
+  // ====================================================
 
   return {
 
@@ -570,11 +595,11 @@ function getBatchMetrics() {
       batch.status
 
   };
+
 }
 
-
 // ======================================================
-// EXPORT
+// EXPORTS
 // ======================================================
 
 module.exports = {
