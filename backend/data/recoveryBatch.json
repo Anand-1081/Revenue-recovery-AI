@@ -1,0 +1,14 @@
+{
+  "batch_id": "BATCH-001",
+  "created_at": "2026-09-04T09:00:00Z",
+  "total_revenue_at_risk": 0,
+  "total_recoverable_revenue": 0,
+  "total_recoverable_payments": 0,
+  "recovered_revenue": 0,
+  "remaining_revenue": 0,
+  "recovered_payments": [],
+  "human_review_payments": [],
+  "stopped_payments": [],
+  "failed_payments": [],
+  "status": "ACTIVE"
+}
