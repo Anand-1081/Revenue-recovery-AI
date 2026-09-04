@@ -1,153 +1,32 @@
-# RecoverAI
+# ⚡ RecoverAI
 
-### AI Revenue Recovery Agent
+<p align="center">
+  <strong>AI Revenue Recovery Agent</strong>
+</p>
 
-RecoverAI is an AI-powered revenue recovery system that detects failed payments, analyzes customer and payment history, chooses the safest recovery action, and executes a bounded recovery workflow.
+<p align="center">
+  Detect revenue at risk. Decide the right intervention. Recover it safely.
+</p>
 
-The system is designed around a simple principle:
-
-> AI recommends. Backend authorizes. Backend executes.
-
----
-
-## Problem
-
-Failed payments create revenue leakage.
-
-A payment may fail because of:
-
-- Insufficient funds
-- Bank decline
-- Payment timeout
-- Unknown payment failure
-
-Manually deciding what to do for every failed payment is slow and inconsistent.
-
-RecoverAI automates this decision process while keeping strict backend controls around the AI.
+<p align="center">
+  <img src="https://img.shields.io/badge/Track-3%20AI%20Revenue%20Recovery-black?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/AI-Gemini-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Backend-Node.js-green?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Frontend-React-61DAFB?style=for-the-badge" />
+</p>
 
 ---
 
-## How It Works
+## 💡 What is RecoverAI?
+
+**RecoverAI is an AI-powered revenue recovery agent that turns failed payments into recovery opportunities.**
+
+Instead of simply reporting failed payments, RecoverAI:
 
 ```text
-Failed Payment
-      ↓
-Revenue at Risk Detection
-      ↓
-Gemini AI Analysis
-      ↓
-Recovery Decision
-      ↓
-Policy Engine
-      ↓
-Recovery Tool
-      ↓
-Payment Updated
-      ↓
-Audit Trail
-      ↓
-Revenue Metrics
-AI Recovery Actions
-
-The AI can select exactly one action:
-
-1. Retry Payment
-
-Used when a payment failure appears temporary or the customer has a strong successful payment history.
-
-2. Send Recovery Reminder
-
-Used when the customer may need to take action to complete payment.
-
-3. Request Human Review
-
-Used when the situation is uncertain or risky.
-
-4. Stop Recovery
-
-Used when further automated recovery is not appropriate.
-
-Safety Architecture
-
-Gemini does not directly control the payment system.
-
-The architecture separates reasoning from execution.
-
-                 ┌─────────────────┐
-                 │   Failed Payment│
-                 └────────┬────────┘
-                          ↓
-                 ┌─────────────────┐
-                 │   Gemini AI     │
-                 │    Reasoning    │
-                 └────────┬────────┘
-                          ↓
-                 ┌─────────────────┐
-                 │  Policy Engine  │
-                 │     Safety      │
-                 └────────┬────────┘
-                          ↓
-                 ┌─────────────────┐
-                 │ Recovery Tools  │
-                 │   Execution     │
-                 └────────┬────────┘
-                          ↓
-                 ┌─────────────────┐
-                 │   Audit Trail   │
-                 └─────────────────┘
-
-This prevents the AI from directly executing an unsafe action.
-
-Recovery Limits
-
-RecoverAI uses bounded recovery rules.
-
-Maximum retries
-2 retries
-Maximum reminders
-3 reminders
-
-Payments that reach these limits cannot continue automated recovery.
-
-High-value or uncertain payments can also be sent for human review.
-
-AI Confidence
-
-Every AI decision includes a confidence score between:
-
-0.00 → 1.00
-
-The dashboard displays the confidence associated with the AI decision.
-
-Risk Level
-
-Every AI decision also contains a risk level:
-
-LOW
-MEDIUM
-HIGH
-
-Examples:
-
-LOW
-
-Strong customer history + temporary failure + recovery limit available.
-
-MEDIUM
-
-Some uncertainty or limited customer history.
-
-HIGH
-
-Unknown failure, unusual situation, or insufficient history.
-
-Batch Recovery
-
-RecoverAI can process multiple recoverable payments in one batch.
-
-For every payment:
-
-Analyze
+Detect
+   ↓
+Understand
    ↓
 Decide
    ↓
@@ -155,64 +34,304 @@ Validate
    ↓
 Execute
    ↓
-Record
+Measure
 
-The batch produces metrics such as:
+The agent analyzes payment failures, customer history, retry limits and payment value before selecting the safest recovery action.
 
-Revenue at risk
-Recoverable revenue
-Revenue recovered
-Remaining revenue
-Recovery rate
-Human review count
-Stopped recoveries
-Failed recoveries
-Audit Trail
+AI recommends. Backend authorizes. Backend executes.
 
-Every recovery decision is recorded.
+🎯 The Problem
 
-The audit trail contains information such as:
+Failed payments represent revenue that a business expected to receive but didn't.
+
+The difficult part isn't detecting:
+
+"This payment failed."
+
+The difficult part is deciding:
+
+"What should we do next?"
+
+Blindly retrying can annoy customers, waste payment attempts and create risky automation.
+
+RecoverAI introduces an intelligent recovery layer between payment failure and recovery execution.
+
+✨ What RecoverAI Does
+Capability	Description
+🔎 Revenue Risk Detection	Finds failed payments that are still recoverable
+🧠 AI Reasoning	Gemini analyzes payment and customer history
+🎯 Action Selection	Chooses the safest recovery strategy
+🛡 Policy Enforcement	Deterministic backend rules validate AI decisions
+⚙️ Recovery Execution	Executes bounded recovery tools
+💰 Revenue Tracking	Measures actual recovered revenue
+📋 Audit Trail	Records every decision and execution
+📊 Batch Evaluation	Measures recovery performance across a batch
+🧠 AI Recovery Actions
+
+RecoverAI gives the AI four possible actions.
+
+retryPayment
+
+Used when a retry appears reasonable.
+
+Example:
+
+Temporary failure
++
+Strong payment history
++
+Retry limit available
+=
+Retry
+sendRecoveryReminder
+
+Used when the customer may need to take action.
+
+Previous retry attempted
++
+Recovery still possible
+=
+Recovery Reminder
+requestHumanReview
+
+Used when automation is uncertain or risky.
+
+Unknown failure
++
+Little customer history
+=
+Human Review
+stopRecovery
+
+Used when continuing automated recovery is no longer appropriate.
+
+Recovery limits exhausted
+=
+Stop
+🏗️ Architecture
+                         ┌─────────────────────┐
+                         │   React Dashboard   │
+                         │                     │
+                         │ Revenue • AI • Audit│
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │   Express Backend   │
+                         │                     │
+                         │  Recovery API       │
+                         └──────────┬──────────┘
+                                    │
+                         ┌──────────┴──────────┐
+                         │                     │
+                         ▼                     ▼
+                ┌─────────────────┐   ┌─────────────────┐
+                │    Gemini AI    │   │   Payment Data  │
+                │                 │   │                 │
+                │ Analyze         │   │ payments.json   │
+                │ Decide          │   │ batch data      │
+                │ Confidence      │   │ audit data      │
+                │ Risk            │   └─────────────────┘
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │  Policy Engine  │
+                │                 │
+                │ Retry limits    │
+                │ Reminder limits │
+                │ Risk rules      │
+                └────────┬────────┘
+                         │
+                  ┌──────┴──────┐
+                  │             │
+                  ▼             ▼
+          ┌──────────────┐ ┌──────────────┐
+          │ Recovery     │ │ Human Review │
+          │ Tools        │ │ / Stop       │
+          └──────┬───────┘ └──────────────┘
+                 │
+                 ▼
+          ┌─────────────────┐
+          │ Revenue Metrics │
+          │                 │
+          │ ₹ Recovered     │
+          │ Recovery Rate   │
+          │ Remaining Risk  │
+          └─────────────────┘
+🛡️ AI Safety Model
+
+RecoverAI does not allow Gemini to directly modify payment data.
+
+Instead:
+
+Gemini
+  │
+  │ Recommendation
+  ▼
+Policy Engine
+  │
+  │ Approved?
+  ├─────────────── No ───────► Block
+  │
+  ▼ Yes
+Recovery Tool
+  │
+  ▼
+Payment State
+
+This creates a controlled agent architecture where:
+
+Layer	Responsibility
+🧠 Gemini	Reasoning
+🛡️ Policy Engine	Safety & authorization
+⚙️ Recovery Tools	Execution
+📋 Audit Logger	Traceability
+📊 Evaluation Service	Measurement
+🔐 Recovery Guardrails
+
+RecoverAI uses bounded automation.
+
+Retry limit
+Maximum: 2 retries
+Reminder limit
+Maximum: 3 reminders
+Additional safeguards
+Failed payments only
+Exact payment ID validation
+Unknown actions rejected
+Invalid AI confidence rejected
+Invalid risk levels rejected
+High-value situations receive additional caution
+Uncertain cases can be escalated to humans
+AI cannot bypass backend policy
+📊 Revenue Recovery
+
+The system measures actual outcomes instead of only counting AI decisions.
+
+Core metrics
+Revenue at Risk
+        ↓
+Recoverable Revenue
+        ↓
+Recovered Revenue
+        ↓
+Recovery Rate
+
+RecoverAI also tracks:
+
+Unrecovered revenue
+Human review revenue
+Stopped recovery revenue
+Failed recovery revenue
+Recovery by action
+AI confidence
+AI decision count
+The objective
+
+Don't just detect lost revenue. Recover measurable revenue.
+
+🧾 Audit Trail
+
+Every recovery decision produces an audit event.
+
+Each event can contain:
 
 Payment ID
 Customer ID
 Amount
-Failure reason
-AI decision
-AI reasoning
-AI confidence
-AI risk level
-Policy decision
-Policy reason
-Executed action
-Recovery result
-Recovered amount
-Execution status
+Failure Reason
+
+AI Decision
+AI Reason
+AI Confidence
+AI Risk Level
+
+Policy Decision
+Policy Reason
+
+Executed Action
+Execution Result
+Recovered Amount
+
 Timestamp
 
-This makes the recovery process explainable and traceable.
+This makes the agent's behavior explainable and traceable.
 
-Evaluation
+🧪 Demo Dataset
 
-RecoverAI evaluates the recovery batch using measurable outcomes.
+RecoverAI currently uses a controlled payment simulation so the complete recovery workflow can be demonstrated safely.
 
-Important metrics include:
+Example:
 
-Revenue At Risk
-Recoverable Revenue
-Recovered Revenue
-Unrecovered Revenue
-Recovery Rate
-Risk Recovery Rate
-Average AI Confidence
-Recovery By Action
+P001
+₹1,499
+INSUFFICIENT_FUNDS
+8 previous successful payments
+0 retries
 
-The goal is not simply to detect failed payments.
+          ↓
 
-The goal is to demonstrate:
+Gemini
 
-How much revenue was actually recovered.
+          ↓
 
-Technology Stack
+retryPayment
+
+          ↓
+
+Policy Engine
+ALLOWED
+
+          ↓
+
+Recovery Tool
+
+          ↓
+
+SUCCESS
+
+          ↓
+
+₹1,499 RECOVERED
+
+The simulator supports different outcomes such as:
+
+SUCCESS_ON_RETRY
+SUCCESS_AFTER_REMINDER
+FAIL_ON_RETRY
+HUMAN_REVIEW
+
+This allows the entire agent workflow to be demonstrated without using real customer payments.
+
+🖥️ Dashboard
+
+The RecoverAI dashboard provides a single view of:
+
+Revenue
+Revenue at risk
+Recoverable revenue
+Revenue recovered
+Recovery rate
+AI
+Selected action
+Reasoning
+Confidence
+Risk level
+Safety
+Policy decision
+Policy reason
+Blocked actions
+Operations
+Recoverable payments
+Batch status
+Recovery results
+Audit
+Complete decision history
+Execution status
+Recovery amount
+Timestamp
+🛠️ Tech Stack
 Frontend
 React
 Vite
@@ -222,11 +341,15 @@ Node.js
 Express
 AI
 Google Gemini API
-Data
-JSON during prototype stage
-Payments
-Razorpay Test Mode can be integrated later
-Project Structure
+@google/genai
+Storage
+JSON
+Payment Integration
+Razorpay Test Mode
+
+The current prototype uses simulated recovery outcomes. Razorpay integration can be connected as the payment execution layer.
+
+📁 Project Structure
 recover-ai/
 │
 ├── backend/
@@ -254,34 +377,41 @@ recover-ai/
 │   ├── .env
 │   └── package.json
 │
-└── frontend/
-    │
-    ├── src/
-    │   ├── App.jsx
-    │   ├── App.css
-    │   └── main.jsx
-    │
-    ├── package.json
-    └── vite.config.js
-Running Locally
-1. Clone the repository
+├── frontend/
+│   │
+│   ├── src/
+│   │   ├── App.jsx
+│   │   ├── App.css
+│   │   └── main.jsx
+│   │
+│   ├── package.json
+│   └── vite.config.js
+│
+└── README.md
+🚀 Getting Started
+1. Clone
 git clone YOUR_REPOSITORY_URL
 cd recover-ai
-2. Install backend dependencies
+2. Backend
 cd backend
 npm install
-3. Create .env
+
+Create:
+
+backend/.env
+
+Add:
+
 GEMINI_API_KEY=your_gemini_api_key
 
-Never commit .env to GitHub.
+Start the backend:
 
-4. Start backend
 npm run dev
 
 Backend:
 
 http://localhost:5000
-5. Start frontend
+3. Frontend
 
 Open another terminal:
 
@@ -292,89 +422,112 @@ npm run dev
 Frontend:
 
 http://localhost:5173
-API Endpoints
-Payments
-GET /api/payments
+🔌 API
+Method	Endpoint	Purpose
+GET	/api/payments	Get payment data
+GET	/api/recovery/at-risk	Get recoverable payments
+POST	/api/recovery/analyze/:paymentId	Analyze & recover one payment
+POST	/api/recovery/run-batch	Run AI recovery batch
+POST	/api/recovery/reset	Reset demo
+GET	/api/recovery/metrics	Get recovery metrics
+GET	/api/recovery/evaluation	Evaluate batch
+GET	/api/recovery/audit	Get audit trail
+GET	/api/recovery/audit/summary	Get audit summary
+🔄 Recovery Lifecycle
+FAILED PAYMENT
+      │
+      ▼
+REVENUE AT RISK
+      │
+      ▼
+CUSTOMER + PAYMENT ANALYSIS
+      │
+      ▼
+GEMINI DECISION
+      │
+      ├── Retry
+      ├── Reminder
+      ├── Human Review
+      └── Stop
+      │
+      ▼
+POLICY VALIDATION
+      │
+      ├── BLOCKED
+      │
+      └── APPROVED
+              │
+              ▼
+        RECOVERY TOOL
+              │
+              ▼
+       ACTUAL OUTCOME
+              │
+              ▼
+        AUDIT + METRICS
+🧠 Why This Is an Agent
 
-Returns payment data.
+RecoverAI is more than an LLM chatbot.
 
-At-risk payments
-GET /api/recovery/at-risk
+The agent:
 
-Returns recoverable failed payments.
+Observes payment state.
+Reasons about the situation.
+Selects an action.
+Uses available recovery tools.
+Operates under deterministic constraints.
+Observes the result.
+Records the outcome.
+Measures the business impact.
 
-Analyze payment
-POST /api/recovery/analyze/:paymentId
+The focus is therefore not just:
 
-Runs Gemini analysis and executes the approved recovery action.
+"What does the AI think?"
 
-Run recovery batch
-POST /api/recovery/run-batch
+but:
 
-Processes all currently recoverable payments.
+"What did the agent safely do, and how much revenue did it recover?"
 
-Reset demo
-POST /api/recovery/reset
-
-Restores the demo dataset and clears previous recovery results.
-
-Metrics
-GET /api/recovery/metrics
-
-Returns revenue recovery metrics.
-
-Evaluation
-GET /api/recovery/evaluation
-
-Evaluates batch performance.
-
-Audit trail
-GET /api/recovery/audit
-
-Returns detailed audit events.
-
-Audit summary
-GET /api/recovery/audit/summary
-
-Returns summarized audit statistics.
-
-Important Design Principle
-
-RecoverAI intentionally does not allow the AI model to directly modify payment data.
-
-The AI only produces a structured decision.
-
-The backend then:
-
-Validates the AI response.
-Checks recovery policy.
-Executes the permitted tool.
-Updates payment state.
-Records the result.
-Updates revenue metrics.
-Writes an audit event.
-
-This creates a controlled agent architecture rather than an unrestricted AI automation.
-
-Future Improvements
-
-Potential production extensions include:
-
-Razorpay Test Mode integration
-PostgreSQL/Supabase persistence
-Real payment failure webhooks
-Customer communication channels
-Email/SMS recovery
-Adaptive retry timing
-B2B receivables recovery
-Promise-to-pay tracking
-Multilingual recovery messages
-Human review dashboard
-Recovery strategy experimentation
-Buildathon Track
+🗺️ Roadmap
+Current
+ Failed payment detection
+ Gemini decision making
+ Function calling
+ Confidence scoring
+ Risk classification
+ Policy engine
+ Recovery tools
+ Batch processing
+ Revenue metrics
+ Audit trail
+ Batch evaluation
+ Recovery simulation
+Next
+ Razorpay Test Mode integration
+ PostgreSQL/Supabase
+ Payment webhooks
+ Email/SMS recovery
+ Adaptive retry timing
+ Human review workflow
+ Recovery strategy experiments
+ Multilingual customer communication
+🏆 Buildathon
 
 Built for:
 
-Razorpay AI Buildathon — Track 3: AI Revenue Recovery
+Razorpay AI Buildathon
 
-The project focuses on finding revenue at risk, deciding the appropriate intervention, executing bounded recovery actions, and measuring recovered revenue.
+Track 3 — AI Revenue Recovery
+
+Find revenue that's slipping away and win it back.
+
+RecoverAI focuses on the complete loop:
+
+Detect → Decide → Execute → Measure
+👨‍💻 Author
+
+Anand
+
+Built with:
+
+React + Node.js + Gemini
