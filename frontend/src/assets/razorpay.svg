@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="110" viewBox="0 0 520 110" role="img" aria-labelledby="title desc">
+  <title id="title">Razorpay logo</title>
+  <desc id="desc">Razorpay wordmark with its angular r symbol.</desc>
+  <rect width="520" height="110" fill="none"/>
+  <!-- Razorpay-style angular mark -->
+  <g fill="#0C2451">
+    <path d="M22 20h34l-18 31h23L39 90H18l17-31H12z"/>
+    <path d="M45 20h35L62 51H86L57 90H36l18-31H31z" opacity=".96"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="104" y="72"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="55"
+        font-weight="700"
+        letter-spacing="-2"
+        fill="#0C2451">razorpay</text>
+</svg>

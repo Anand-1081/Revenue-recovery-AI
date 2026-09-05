@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Google Gemini</title>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4285F4"/>
+      <stop offset="45%" stop-color="#8E75B2"/>
+      <stop offset="100%" stop-color="#EA4335"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#g)" d="M256 0c0 106.04-43.06 177.05-129.18 213.04C86.02 232.8 43.75 246.28 0 256c43.75 9.72 86.02 23.2 126.82 42.96C212.94 334.95 256 405.96 256 512c0-106.04 43.06-177.05 129.18-213.04C425.98 279.2 468.25 265.72 512 256c-43.75-9.72-86.02-23.2-126.82-42.96C299.06 177.05 256 106.04 256 0z"/>
+</svg>
