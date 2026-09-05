@@ -20,27 +20,6 @@
   </a>
 </p>
 
-<p align="center">
-  <img
-    src="./frontend/assets/recoverai_readme_header.png"
-    alt="RecoverAI"
-    width="650"
-  />
-</p>
-
-<p align="center">
-  <strong>AI-powered revenue recovery for failed payments</strong>
-</p>
-
-<p align="center">
-  Detect revenue at risk → Decide the right recovery action → Execute safely → Measure recovered revenue
-</p>
-
-<p align="center">
-  <a href="https://revenue-recovery-ai-nine.vercel.app/">
-    🚀 <strong>Live Demo</strong>
-  </a>
-</p>
 
 <br>
 
