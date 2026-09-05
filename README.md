@@ -21,21 +21,47 @@
 </p>
 
 <p align="center">
+  <img
+    src="./frontend/assets/recoverai_readme_header.png"
+    alt="RecoverAI"
+    width="650"
+  />
+</p>
 
-![Razorpay AI Buildathon](https://img.shields.io/badge/Razorpay-AI%20Buildathon%202026-02042B?style=for-the-badge)
+<p align="center">
+  <strong>AI-powered revenue recovery for failed payments</strong>
+</p>
 
-![Track 3](https://img.shields.io/badge/Track%203-AI%20Revenue%20Recovery-FF6B35?style=for-the-badge)
+<p align="center">
+  Detect revenue at risk → Decide the right recovery action → Execute safely → Measure recovered revenue
+</p>
 
-![React](https://img.shields.io/badge/React-Frontend-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+<p align="center">
+  <a href="https://revenue-recovery-ai-nine.vercel.app/">
+    🚀 <strong>Live Demo</strong>
+  </a>
+</p>
 
-![Node.js](https://img.shields.io/badge/Node.js-Backend-339933?style=for-the-badge&logo=node.js&logoColor=white)
+<br>
 
-![Gemini](https://img.shields.io/badge/Gemini-AI%20Agent-4285F4?style=for-the-badge&logo=google)
+<p align="center">
+  <img src="./frontend/src/assets/razorpay.svg" height="42" alt="Razorpay">
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="./frontend/src/assets/react.svg" height="42" alt="React">
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="./frontend/src/assets/nodejs.svg" height="42" alt="Node.js">
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="./frontend/src/assets/gemini.svg" height="42" alt="Gemini">
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="./frontend/src/assets/vercel.svg" height="42" alt="Vercel">
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="./frontend/src/assets/render.svg" height="42" alt="Render">
+</p>
 
-![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel)
-
-![Render](https://img.shields.io/badge/Render-Backend-46E3B7?style=for-the-badge&logo=render&logoColor=black)
-
+<p align="center">
+  <sub>
+    Razorpay&nbsp;&nbsp;•&nbsp;&nbsp;React&nbsp;&nbsp;•&nbsp;&nbsp;Node.js&nbsp;&nbsp;•&nbsp;&nbsp;Gemini&nbsp;&nbsp;•&nbsp;&nbsp;Vercel&nbsp;&nbsp;•&nbsp;&nbsp;Render
+  </sub>
 </p>
 
 ---
