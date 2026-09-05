@@ -1,6 +1,6 @@
 <p align="center">
   <img
-    src="./frontend/assets/recoverai_readme_header.png"
+    src="./frontend/src/assets/recoverai_readme_header.png"
     alt="RecoverAI - AI Revenue Recovery Agent"
     width="100%"
   />
