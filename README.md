@@ -25,7 +25,7 @@
 
 <p align="center">
   <img src="./frontend/src/assets/razorpay.svg" height="42" alt="Razorpay">
-  &nbsp;
+  
   <img src="./frontend/src/assets/react.svg" height="42" alt="React">
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="./frontend/src/assets/nodejs.svg" height="42" alt="Node.js">
@@ -33,7 +33,7 @@
   <img src="./frontend/src/assets/gemini.svg" height="42" alt="Gemini">
   &nbsp;&nbsp;&nbsp;&nbsp;
   <img src="./frontend/src/assets/vercel.svg" height="42" alt="Vercel">
-  &nbsp;&nbsp;
+  
   <img src="./frontend/src/assets/render.svg" height="42" alt="Render">
 </p>
 
